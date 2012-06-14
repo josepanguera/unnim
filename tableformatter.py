@@ -1,3 +1,4 @@
+# Source: http://code.activestate.com/recipes/267662-table-indentation/ 
 import cStringIO,operator
 
 def indent(rows, hasHeader=False, headerChar='-', delim=' | ', justify='left',
