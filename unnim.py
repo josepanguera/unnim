@@ -41,18 +41,19 @@ def setupbr():
     return br
 
 def login(br):
-    # Open some site, let's pick a random one, the first that pops in mind:
+    # Open real url of the login form
     r = br.open('https://www.unnim.cat/SESSIONS/SFObe?ID=0&OPE=CGI_1001m_FRAME&CAN=WEB&WEB=BE')
 
-    # Select the first (index zero) form
+    # Select the first (index zero) form (login)
     br.select_form(nr=0)
 
-    # Let's search
+    # Fill username and password
     br.form['1']=username
     br.form['2']=password
     br.submit()
 
     # Access 
+    # Hardcoded URL that appears in some little javascript test code in the return page
     r = br.open('/appBE/SFObe?CAN=WEB&ID=0&LLAMADA=CK&Dummy=488535&OPE_REFERRER=Xmsfom.htm&OPE=PG_PosGlobal&idProces=PG_MNU&idPas=1')
     return r.read()
 
@@ -93,6 +94,7 @@ def printlastmovements(num, html):
     print indent(rows, True)
 
 def lastmovements(br, num):
+    # Hardcoded URL to check last 10 movements of a given account number
     url = 'https://www.unnim.cat/appBE/SFObe?SEC=1&ID=0&CAN=WEB&IDIOMA=0&LLAMADA=CK&OPE=CM_ConsultarMoviments_SORTIDA&OPE_REFERRER=CC_ResumComptes_ENTRADA&Dummy=668397&CCC=%s&Periode=U&pasosFets=1'
     r = br.open(url % num)
     printlastmovements(num, r.read())
